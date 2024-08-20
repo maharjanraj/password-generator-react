@@ -1,0 +1,113 @@
+.App {
+  background-image: linear-gradient(to bottom, #4BD5E7, #fff);
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    text-align: center;
+    color: #214c54;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    border-radius: 8px;
+    padding: 24px;
+    background-color: #fff;
+    height: 450px;
+    width: 400px;
+    box-shadow: 0 20px 40px #394c6026;
+
+    .password-input__container {
+      display: flex;
+      position: relative;
+
+      .password-input__img {
+        cursor: pointer;
+        position: absolute;
+        color: #fff;
+        height: 28px;
+        top: 8px;
+        right: 8px;
+      }
+
+      .tooltip {
+        position: relative;
+        display: inline-block;
+        border-bottom: 1px dotted #000;
+      }
+
+      .tooltip .tooltip-text {
+        color: #fff;
+        visibility: hidden;
+        width: 120px;
+        background-color: #000;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 150%;
+        left: 50%;
+        margin-left: -80px;
+      }
+
+      .tooltip .tooltip-text::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #000 transparent transparent transparent;
+      }
+
+      .tooltip:hover .tooltip-text {
+        visibility: visible;
+      }
+
+      #password-input {
+        background-color: #fff;
+        flex-grow: 1;
+        height: 40px;
+        border: 1px solid;
+        border-radius: 4px;
+        font-size: 16px;
+        padding-right: 40px;
+        padding-left: 14px;
+      }
+    }
+
+    input {
+      &[type=range] {
+        width: 100%;
+      }
+
+      &[type=checkbox] {
+        margin-top: 20px;
+        margin-right: 16px;
+      }
+    }
+
+    .generate-button {
+      font-size: 22px;
+      color: #fff;
+      background-color: #4BD5E7;
+      border: 1px solid #4BD5E7;
+      border-radius: 4px;
+      width: 200px;
+      height: 48px;
+      margin: 40px auto 0;
+      cursor: pointer;
+
+        &:hover {
+          box-shadow: 0 0 10px rgba(0,0,0,.3);
+        }
+    }
+  }
+}
