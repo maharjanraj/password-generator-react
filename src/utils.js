@@ -16,7 +16,7 @@ const specialCharSet2 = [91, 96];
 // Special characters {|}~
 const specialCharSet3 = [123, 126];
 
-export const generateRandomChar = (charSets) => {
+const generateRandomChar = (charSets) => {
   // pick random ascii range
   const charSet = charSets[Math.floor(Math.random() * charSets.length)];
 
@@ -27,10 +27,10 @@ export const generateRandomChar = (charSets) => {
 
 export const generateRandomPassword = (
   length,
-  includeNumber,
-  includeUppercase,
-  includeLowercase,
-  includeSpecial
+  includeNumber = false,
+  includeUppercase = false,
+  includeLowercase = false,
+  includeSpecial = false
 ) => {
   const charSets = [];
 
