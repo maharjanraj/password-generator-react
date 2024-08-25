@@ -1,17 +1,35 @@
 import { useState } from 'react';
-import './App.scss';
 import CheckboxFilter from './components/CheckboxInput';
-import RangeInput from './components/RangeInput';
-import { generateRandomPassword } from './utils';
 import PasswordCopy from './components/PasswordCopy';
+import RangeInput from './components/RangeInput';
+import { canBeUnchecked, generateRandomPassword } from './utils';
+
+import './App.scss';
 
 function App() {
   const [password, setPassword] = useState('');
-  const [length, setLength] = useState(10);
-  const [includeLowercase, setIncludeLowercase] = useState(true);
-  const [includeUppercase, setIncludeUppercase] = useState(false);
-  const [includeNumbers, setIncludeNumbers] = useState(false);
-  const [includeSymbols, setIncludeSymbols] = useState(false);
+  const [length, setLength] = useState('10');
+  const [options, setOptions] = useState({
+    includeLowercase: true,
+    includeUppercase: false,
+    includeNumbers: false,
+    includeSymbols: false,
+  });
+
+  const handleOptionChange = (e) => {
+    // verify if at least one of the checkbox remains checked
+    if (!e.target.checked && !canBeUnchecked(e.target.name, options)) return;
+
+    setOptions((prevOptions) => ({
+      ...prevOptions,
+      [e.target.name]: e.target.checked,
+    }));
+  };
+
+  const handleGeneratePassword = () => {
+    const newPassword = generateRandomPassword(length, options);
+    setPassword(newPassword);
+  };
 
   return (
     <div className='App'>
@@ -20,79 +38,38 @@ function App() {
         <PasswordCopy password={password} />
         <RangeInput
           value={length}
-          onChange={(e) => {
-            setLength(e.target.value);
-          }}
+          onChange={(e) => setLength(e.target.value)}
         />
+
         <CheckboxFilter
           label='Include Lowercase'
-          checked={includeLowercase}
-          onChange={(e) => {
-            if (
-              !e.target.checked &&
-              !includeUppercase &&
-              !includeNumbers &&
-              !includeSymbols
-            )
-              return;
-            setIncludeLowercase(e.target.checked);
-          }}
+          name='includeLowercase'
+          checked={options.includeLowercase}
+          onChange={handleOptionChange}
         />
+
         <CheckboxFilter
           label='Include Uppercase'
-          checked={includeUppercase}
-          onChange={(e) => {
-            if (
-              !e.target.checked &&
-              !includeLowercase &&
-              !includeNumbers &&
-              !includeSymbols
-            )
-              return;
-            setIncludeUppercase(e.target.checked);
-          }}
+          name='includeUppercase'
+          checked={options.includeUppercase}
+          onChange={handleOptionChange}
         />
+
         <CheckboxFilter
           label='Include Numbers'
-          checked={includeNumbers}
-          onChange={(e) => {
-            if (
-              !e.target.checked &&
-              !includeUppercase &&
-              !includeLowercase &&
-              !includeSymbols
-            )
-              return;
-            setIncludeNumbers(e.target.checked);
-          }}
+          name='includeNumbers'
+          checked={options.includeNumbers}
+          onChange={handleOptionChange}
         />
+
         <CheckboxFilter
           label='Include Symbols'
-          checked={includeSymbols}
-          onChange={(e) => {
-            if (
-              !e.target.checked &&
-              !includeUppercase &&
-              !includeNumbers &&
-              !includeLowercase
-            )
-              return;
-            setIncludeSymbols(e.target.checked);
-          }}
+          name='includeSymbols'
+          checked={options.includeSymbols}
+          onChange={handleOptionChange}
         />
-        <button
-          className='generate-button'
-          onClick={() => {
-            const password = generateRandomPassword(
-              length,
-              includeNumbers,
-              includeUppercase,
-              includeLowercase,
-              includeSymbols
-            );
-            setPassword(password);
-          }}
-        >
+
+        <button className='generate-button' onClick={handleGeneratePassword}>
           Generate
         </button>
       </div>

@@ -6,7 +6,7 @@ const RangeInput = ({value = 10, onChange = () => {}}) => {
       <p>Character length: {value}</p>
       <input
         type="range"
-        min="3"
+        min="5"
         max="32"
         value={value}
         onChange={onChange}
@@ -16,7 +16,7 @@ const RangeInput = ({value = 10, onChange = () => {}}) => {
 };
 
 RangeInput.propTypes = {
-  value: PropTypes.number,
+  value: PropTypes.string,
   onChange: PropTypes.func
 }
 

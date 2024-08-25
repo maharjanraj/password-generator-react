@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 
-function CheckboxFilter({ label, checked = false, onChange = () => {} }) {
+function CheckboxFilter({ name, label, checked = false, onChange = () => {} }) {
   return (
     <div>
       <label>
-        <input type='checkbox' checked={checked} onChange={onChange}></input>
+        <input id={name} name={name} type='checkbox' checked={checked} onChange={onChange}></input>
         {label}
       </label>
     </div>
@@ -12,6 +12,7 @@ function CheckboxFilter({ label, checked = false, onChange = () => {} }) {
 }
 
 CheckboxFilter.propTypes = {
+  name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   checked: PropTypes.bool,
   onChange: PropTypes.func,
